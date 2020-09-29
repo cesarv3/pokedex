@@ -4,6 +4,9 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -44,6 +47,24 @@ class MainScreenActivity : AppCompatActivity(), MainScreenContract.View {
         //funcion del presenter
         //presenter.obtenerDatos()?.let { listaPokemonAdapter.agregarPokemones(it) }
         //Log.i("dentro de activity", presenter.obtenerDatos()?.size.toString())
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.mimenu,menu)
+        return true
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId)
+        {
+            R.id.logout -> {
+                presenter.logout()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun getAppContext(): Context {

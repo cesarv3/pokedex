@@ -14,5 +14,6 @@ interface MainScreenContract {
     interface Presenter{
         fun obtenerDatos()
         fun getAppContext(): Context
+        fun logout()
     }
 }

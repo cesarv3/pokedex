@@ -1,10 +1,15 @@
 package com.example.myapplication.ui.main
 
 import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.example.myapplication.data.api.PokeapiService
 import com.example.myapplication.data.model.Pokemon
 import com.example.myapplication.data.model.PokemonRespuesta
+import com.example.myapplication.ui.login.LoginScreenActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -86,5 +91,12 @@ class MainScreenPresenter(val view : MainScreenContract.View):MainScreenContract
 
     override fun getAppContext(): Context {
         return view.getAppContext()
+    }
+
+    override fun logout() {
+        Toast.makeText(getAppContext(),"Saliendo...", Toast.LENGTH_SHORT).show()
+        val intent = Intent(getAppContext(),LoginScreenActivity::class.java).apply {  }
+        ContextCompat.startActivity(getAppContext(), intent, Bundle.EMPTY)
+        return
     }
 }

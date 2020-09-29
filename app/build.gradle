@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.myapplication"
-        minSdkVersion 16
+        minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -44,7 +44,10 @@ dependencies {
     //glide para cargar imagenes
     implementation 'com.github.bumptech.glide:glide:4.9.0'
 
-
+    //bibliotecca json simple para pasar objetos de json a objeto
+    implementation 'com.github.cliftonlabs:json-simple:3.1.0'
+    //biblioteca dozer para leer de archivo json a objetos
+    implementation 'com.github.dozermapper:dozer-core:6.5.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

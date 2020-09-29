@@ -12,11 +12,13 @@ import kotlinx.android.synthetic.main.activity_login_screen.*
 class LoginScreenActivity : Activity(), View.OnClickListener,LoginScreenContract.View {
     private lateinit var presenter: LoginScreenContract.Presenter
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_screen)
         loginBtn.setOnClickListener(this)
         presenter = LoginScreenPresenter(this)
+
 
 
     }
