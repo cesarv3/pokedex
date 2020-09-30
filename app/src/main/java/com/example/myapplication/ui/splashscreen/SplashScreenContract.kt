@@ -1,12 +1,14 @@
 package com.example.myapplication.ui.splashscreen
 
- interface SplashScreenContract {
-    interface View{
+import android.content.Context
 
-        fun login();
+interface SplashScreenContract {
+    interface View{
+        fun getAppContext():Context
     }
 
     interface Presenter{
-        fun refreshSession();
+        fun isLogged():Boolean
+        fun getAppContext():Context
     }
 }

@@ -2,6 +2,7 @@ package com.example.myapplication.ui.login
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -12,6 +13,7 @@ import com.github.cliftonlabs.json_simple.JsonArray
 import com.github.cliftonlabs.json_simple.JsonObject
 import com.github.cliftonlabs.json_simple.Jsoner
 import com.github.dozermapper.core.DozerBeanMapperBuilder
+import com.google.gson.Gson
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.File
@@ -28,12 +30,10 @@ class LoginScreenPresenter(val view: LoginScreenContract.View) : LoginScreenCont
         val bufferedReader = BufferedReader(fileReader)
 
         var misObjetos:JsonArray = Jsoner.deserializeMany(bufferedReader) as JsonArray
-        //Log.i("objetos",misObjetos.toJson())
 
         var mapper = DozerBeanMapperBuilder.buildDefault()
 
         val jsonArray:JsonArray = misObjetos[0] as JsonArray
-//        Log.i("objetos",jsonArray.toJson())
         var users:MutableList<User> = ArrayList<User>()
 
         if (jsonArray != null)
@@ -44,17 +44,23 @@ class LoginScreenPresenter(val view: LoginScreenContract.View) : LoginScreenCont
             }
         }
 
-//        val usuarios:List<User> = jsonArray.stream()
-//            .map { obj -> mapper.map(obj, User::class.java) }
-//            .collect(Collectors.toList()) as List<User>
-//        Log.i("objetos",usuarios.toString())
-
 
         for (user in users)
         {
             if (username.equals(user.username) && password.equals(user.password))
             {
 
+                //Codigo para guardar el objeto usuario dentro del shared preferences
+                val preferences:SharedPreferences =  getAppContext().getSharedPreferences("com.example.myapplication",Context.MODE_PRIVATE)
+                val preferencesEditor:SharedPreferences.Editor = preferences.edit()
+
+                val gson:Gson = Gson()
+
+                val json = gson.toJson(user)
+                preferencesEditor.putString("usuario",json)
+                preferencesEditor.commit()
+
+                //Mostramos al usuario que esta en entrando y creamos el intent para cambiar de activity
                 Toast.makeText(getAppContext(),"Accediendo...",Toast.LENGTH_SHORT).show()
                 val intent = Intent(getAppContext(),MainScreenActivity::class.java).apply {  }
                 startActivity(getAppContext(),intent, Bundle.EMPTY)
